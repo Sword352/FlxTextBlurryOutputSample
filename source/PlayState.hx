@@ -17,7 +17,7 @@ class PlayState extends FlxState
 		text.screenCenter();
 		add(text);
 
-		var instruction:FlxText = new FlxText(0, 0, 0, "Press ENTER to turn on/off antialiasing", 12);
+		var instruction:FlxText = new FlxText(0, 0, 0, "Press ENTER to turn on/off antialiasing\nPress SHIFT to change the pixel ratio", 12);
 		instruction.font = AssetPaths.vcr__ttf;
 		instruction.screenCenter();
 		instruction.y += instruction.height * 1.4;
@@ -28,6 +28,13 @@ class PlayState extends FlxState
 	{
 		if (FlxG.keys.justPressed.ENTER)
 			text.antialiasing = !text.antialiasing;
+
+		if (FlxG.keys.justPressed.SHIFT)
+		{
+			var ratio:Int = openfl.display._internal.CairoTextField.defaultPixelRatio;
+			openfl.display._internal.CairoTextField.defaultPixelRatio = (ratio == 1) ? 3 : 1;
+			FlxG.resetGame();
+		}
 
 		super.update(elapsed);
 	}
